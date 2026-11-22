@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VELZARO | دار العطور الفاخرة</title>
+<style>
+:root {
+--bg-dark: #0e0e10;
+--bg-card: #18181c;
+--gold: #d4af37;
+--gold-hover: #b8962e;
+--text-main: #f5f5f7;
+--text-muted: #a1a1aa;
+--border: #27272a;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+background-color: var(--bg-dark);
+color: var(--text-main);
+line-height: 1.6;
+}
+
+/* الهيدر */
+header {
+position: sticky;
+top: 0;
+z-index: 100;
+background: rgba(14, 14, 16, 0.92);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid var(--border);
+padding: 16px 5%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.brand {
+font-size: 1.7rem;
+font-weight: 800;
+letter-spacing: 3px;
+color: var(--gold);
+}
+
+.cart-trigger {
+background: var(--bg-card);
+color: var(--text-main);
+border: 1px solid var(--gold);
+padding: 10px 18px;
+border-radius: 30px;
+cursor: pointer;
+font-weight: 600;
+display: flex;
+align-items: center;
+gap: 8px;
+transition: 0.2s;
+}
+
+.cart-trigger:hover {
+background: var(--gold);
+color: #000;
+}
+
+.badge {
+background: var(--gold);
+color: #000;
+padding: 2px 8px;
+border-radius: 12px;
+font-size: 0.85rem;
+font-weight: 700;
+}
+
+.cart-trigger:hover .badge {
+background: #000;
+color: var(--gold);
+}
+
+/* البانر الرئيسي */
+.hero {
+text-align: center;
+padding: 70px 20px 50px;
+background: radial-gradient(circle at top, #231f14 0%, var(--bg-dark) 70%);
+border-bottom: 1px solid var(--border);
+}
+
+.hero h1 {
+font-size: 2.5rem;
+margin-bottom: 12px;
+color: #fff;
+}
+
+.hero h1 span {
+color: var(--gold);
+}
+
+.hero p {
+color: var(--text-muted);
+max-width: 580px;
+margin: 0 auto 24px;
+font-size: 1.05rem;
+}
+
+/* أزرار التصفية */
+.filters {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 10px;
+padding: 30px 5% 10px;
+}
+
+.filter-btn {
+background: var(--bg-card);
+color: var(--text-muted);
+border: 1px solid var(--border);
+padding: 8px 20px;
+border-radius: 25px;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+border-color: var(--gold);
+color: var(--gold);
+}
+
+/* شبكة المنتجات */
+.products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+gap: 24px;
+padding: 30px 5% 60px;
+max-width: 1300px;
+margin: 0 auto;
+}
+
+.card {
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: 16px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+transition: transform 0.25s, border-color 0.25s;
+}
+
+.card:hover {
+transform: translateY(-5px);
+border-color: var(--gold);
+}
+
+.bottle-visual {
+height: 200px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: linear-gradient(135deg, #1f1f24, #121215);
+border-bottom: 1px solid var(--border);
+position: relative;
+}
+
+.bottle-icon {
+width: 64px;
+height: 92px;
+border: 2px solid var(--gold);
+border-radius: 10px 10px 4px 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.7rem;
+letter-spacing: 1px;
+color: var(--gold);
+position: relative;
+background: rgba(212, 175, 55, 0.06);
+}
+
+.bottle-icon::before {
+content: "";
+position: absolute;
+top: -14px;
+width: 24px;
+height: 12px;
+background: var(--gold);
+border-radius: 3px 3px 0 0;
+}
+
+.category-tag {
+position: absolute;
+top: 12px;
+right: 12px;
+font-size: 0.75rem;
+background: rgba(0, 0, 0, 0.6);
+color: var(--gold);
+padding: 4px 10px;
+border-radius: 12px;
+border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.card-body {
+padding: 20px;
+display: flex;
+flex-direction: column;
+flex: 1;
+}
+
+.card-title {
+font-size: 1.25rem;
+font-weight: 700;
+margin-bottom: 6px;
+}
+
+.notes {
+font-size: 0.88rem;
+color: var(--text-muted);
+margin-bottom: 16px;
+flex: 1;
+}
+
+.card-footer {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding-top: 14px;
+border-top: 1px solid var(--border);
+}
+
+.price {
+font-size: 1.15rem;
+font-weight: 700;
+color: var(--gold);
+}
+
+.add-btn {
+background: var(--gold);
+color: #000;
+border: none;
+padding: 9px 16px;
+border-radius: 10px;
+font-weight: 700;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.add-btn:hover {
+background: var(--gold-hover);
+}
+
+/* السلة الجانبية (Drawer) */
+.overlay {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.7);
+display: none;
+z-index: 200;
+}
+
+.overlay.open {
+display: block;
+}
+
+.cart-drawer {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+max-width: 400px;
+height: 100vh;
+background: var(--bg-card);
+border-right: 1px solid var(--border);
+z-index: 201;
+transform: translateX(-100%);
+transition: transform 0.3s ease;
+display: flex;
+flex-direction: column;
+}
+
+.cart-drawer.open {
+transform: translateX(0);
+}
+
+.drawer-header {
+padding: 20px;
+border-bottom: 1px solid var(--border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.close-btn {
+background: none;
+border: none;
+color: var(--text-muted);
+font-size: 1.5rem;
+cursor: pointer;
+}
+
+.cart-items {
+flex: 1;
+overflow-y: auto;
+padding: 16px 20px;
+}
+
+.cart-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 0;
+border-bottom: 1px solid var(--border);
+gap: 10px;
+}
+
+.qty-controls {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.qty-btn {
+width: 26px;
+height: 26px;
+background: var(--bg-dark);
+color: #fff;
+border: 1px solid var(--border);
+border-radius: 6px;
+cursor: pointer;
+}
+
+.drawer-footer {
+padding: 20px;
+border-top: 1px solid var(--border);
+background: var(--bg-dark);
+}
+
+.total-row {
+display: flex;
+justify-content: space-between;
+font-size: 1.15rem;
+font-weight: 700;
+margin-bottom: 16px;
+}
+
+.checkout-btn {
+width: 100%;
+padding: 13px;
+background: var(--gold);
+color: #000;
+border: none;
+border-radius: 10px;
+font-size: 1rem;
+font-weight: 700;
+cursor: pointer;
+}
+
+.checkout-btn:disabled {
+opacity: 0.4;
+cursor: not-allowed;
+}
+
+.toast {
+position: fixed;
+bottom: 24px;
+right: 24px;
+background: var(--gold);
+color: #000;
+padding: 12px 20px;
+border-radius: 10px;
+font-weight: 700;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+z-index: 300;
+}
+
+.toast.show {
+opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="brand">VELZARO</div>
+<button class="cart-trigger" id="openCartBtn">
+سلة المشتريات <span class="badge" id="cartCount">0</span>
+</button>
+</header>
+
+<section class="hero">
+<h1>اكتشف بصمتك العطرية مع <span>VELZARO</span></h1>
+<p>تشكيلة حصرية من أرقى العطور الفرنسية والشرقية بتركيز Extrait de Parfum يدوم طويلاً.</p>
+</section>
+
+<div class="filters">
+<button class="filter-btn active" data-category="all">جميع العطور</button>
+<button class="filter-btn" data-category="men">رجالي</button>
+<button class="filter-btn" data-category="women">نسائي</button>
+<button class="filter-btn" data-category="unisex">للجنسين (Unisex)</button>
+</div>
+
+<main class="products-grid" id="productsGrid"></main>
+
+<!-- سلة التسوق الجانبية -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+<div class="drawer-header">
+<h3>سلة VELZARO</h3>
+<button class="close-btn" id="closeCartBtn">×</button>
+</div>
+<div class="cart-items" id="cartItems"></div>
+<div class="drawer-footer">
+<div class="total-row">
+<span>الإجمالي:</span>
+<span id="cartTotal">0 ج.م</span>
+</div>
+<button class="checkout-btn" id="checkoutBtn">إتمام الطلب الآن</button>
+</div>
+</aside>
+
+<div class="toast" id="toast">تمت الإضافة إلى السلة</div>
+
+<script>
+// بيانات عطور VELZARO
+const perfumes = [
+{
+id: 1,
+name: "VELZARO Noir Oud",
+category: "men",
+categoryLabel: "رجالي",
+notes: "عود كمبودي معتق، جلد فاخر، لمسة فلفل أسود وعنبر دافئ.",
+price: 1450,
+size: "100ml"
+},
+{
+id: 2,
+name: "VELZARO Rose Elixir",
+category: "women",
+categoryLabel: "نسائي",
+notes: "ورد دمشقي، فانيليا مدغشقر، مسك أبيض وزهر البرتقال.",
+price: 1350,
+size: "100ml"
+},
+{
+id: 3,
+name: "VELZARO Royal Amber",
+category: "unisex",
+categoryLabel: "للجنسين",
+notes: "عنبر ملكي، زعفران، خشب الصندل ولمسة كراميل ناعمة.",
+price: 1600,
+size: "100ml"
+},
+{
+id: 4,
+name: "VELZARO Bergamot Breeze",
+category: "men",
+categoryLabel: "رجالي",
+notes: "برغموت إيطالي منعش، أخشاب الأرز، نجيل الهند والهيل.",
+price: 1200,
+size: "100ml"
+},
+{
+id: 5,
+name: "VELZARO Velvet Jasmine",
+category: "women",
+categoryLabel: "نسائي",
+notes: "ياسمين ليلي، كمثرى ناضجة، باتشولي وعسل أبيض.",
+price: 1300,
+size: "100ml"
+},
+{
+id: 6,
+name: "VELZARO Smoked Vanilla",
+category: "unisex",
+categoryLabel: "للجنسين",
+notes: "فانيليا مدخنة، حبوب التونكا، تبغ حلو وقرفة.",
+price: 1550,
+size: "100ml"
+}
+ ];
+
+const CART_KEY = "velzaro_cart_v1";
+let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+let activeCategory = "all";
+
+const productsGrid = document.getElementById("productsGrid");
+const cartItemsContainer = document.getElementById("cartItems");
+const cartCount = document.getElementById("cartCount");
+const cartTotal = document.getElementById("cartTotal");
+const checkoutBtn = document.getElementById("checkoutBtn");
+const toast = document.getElementById("toast");
+
+function saveCart() {
+localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function showToast(msg) {
+toast.textContent = msg;
+toast.classList.add("show");
+setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+function renderProducts() {
+const filtered = activeCategory === "all"
+? perfumes
+: perfumes.filter(p => p.category === activeCategory);
+
+productsGrid.innerHTML = filtered.map(item => &lt;article class="card"&gt; &lt;div class="bottle-visual"&gt; &lt;span class="category-tag"&gt;${item.categoryLabel} • ${item.size}&lt;/span&gt; &lt;div class="bottle-icon"&gt;VELZARO&lt;/div&gt; &lt;/div&gt; &lt;div class="card-body"&gt; &lt;h2 class="card-title"&gt;${item.name}</h2>
+<p class="notes">${item.notes}&lt;/p&gt; &lt;div class="card-footer"&gt; &lt;span class="price"&gt;${item.price.toLocaleString()} ج.م</span>
+<button class="add-btn" onclick="addToCart(${item.id})"&gt;أضف للسلة&lt;/button&gt; &lt;/div&gt; &lt;/div&gt; &lt;/article&gt;).join("");
+}
+
+function addToCart(id) {
+const existing = cart.find(item => item.id === id);
+if (existing) {
+existing.qty += 1;
+} else {
+const product = perfumes.find(p => p.id === id);
+cart.push({ ...product, qty: 1 });
+}
+saveCart();
+renderCart();
+showToast("تمت إضافة العطر إلى سلة VELZARO");
+}
+
+function updateQty(id, delta) {
+const item = cart.find(i => i.id === id);
+if (!item) return;
+
+item.qty += delta;
+if (item.qty <= 0) {
+cart = cart.filter(i => i.id !== id);
+}
+saveCart();
+renderCart();
+}
+
+function renderCart() {
+const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+cartCount.textContent = totalItems;
+cartTotal.textContent = ${totalPrice.toLocaleString()} ج.م`;
+checkoutBtn.disabled = cart.length === 0;
+
+if (cart.length === 0) {
+cartItemsContainer.innerHTML = <p style="color:#a1a1aa; text-align:center; margin-top:40px;"&gt;السلة فارغة حالياً.&lt;/p>;
+return;
+}
+
+cartItemsContainer.innerHTML = cart.map(item => &lt;div class="cart-item"&gt; &lt;div&gt; &lt;strong&gt;${item.name}</strong>
+<div style="color:#d4af37; font-size:0.9rem;">{item.id}, -1)">-</button>
+<span>{item.id}, 1)">+</button>
+</div>
+</div>
+`).join("");
+}
+
+// التحكم في السلة الجانبية
+const overlay = document.getElementById("overlay");
+const cartDrawer = document.getElementById("cartDrawer");
+
+function toggleDrawer(open) {
+overlay.classList.toggle("open", open);
+cartDrawer.classList.toggle("open", open);
+}
+
+document.getElementById("openCartBtn").addEventListener("click", () => toggleDrawer(true));
+document.getElementById("closeCartBtn").addEventListener("click", () => toggleDrawer(false));
+overlay.addEventListener("click", () => toggleDrawer(false));
+
+// التصفية
+document.querySelectorAll(".filter-btn").forEach(btn => {
+btn.addEventListener("click", () => {
+document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+btn.classList.add("active");
+activeCategory = btn.dataset.category;
+renderProducts();
+});
+});
+
+// إتمام الطلب
+checkoutBtn.addEventListener("click", () => {
+alert("شكراً لطلبك من VELZARO! تم استلام طلبك بنجاح وسيتم التواصل معك للتأكيد.");
+cart = [];
+saveCart();
+renderCart();
+toggleDrawer(false);
+});
+
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
